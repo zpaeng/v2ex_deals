@@ -8,6 +8,7 @@
     },
     "dependencies": {
       "axios": "^0.21.1",
+      "moment-timezone": "^0.5.34",
       "xml2js": "^0.4.23",
       "node-telegram-bot-api": "^0.54.0"
     }

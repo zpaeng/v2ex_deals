@@ -1,6 +1,7 @@
 const axios = require('axios');
 const xml2js = require('xml2js');
 const TelegramBot = require('node-telegram-bot-api');
+const moment = require('moment-timezone'); 
 
 // Telegram Bot Token
 const botToken = process.env.TELEGRAM_BOT_TOKEN;
@@ -22,7 +23,7 @@ async function fetchAndParseXML() {
 
 // 筛选最近5分钟的帖子
 function filterRecentPosts(posts) {
-    const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+    const fiveMinutesAgo = moment().tz('Asia/Shanghai').subtract(5, 'minutes').toDate();
     console.log('5分钟前' + fiveMinutesAgo)
     return posts.filter(post => {
         const postDate = new Date(post.published[0]);
