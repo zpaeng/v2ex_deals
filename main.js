@@ -55,7 +55,7 @@ const main = async () => {
     try {
         const posts = await fetchAndParseXML();
         const recentPosts = filterRecentPosts(posts);
-        console.log('recentPosts--' + recentPosts);
+        console.log('recentPosts--' + JSON.stringify(recentPosts));
         if (recentPosts) {
             pushToTelegram(recentPosts);
         }
