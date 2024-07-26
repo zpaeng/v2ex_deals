@@ -42,13 +42,14 @@ async function pushToTelegram(posts) {
     posts.forEach(async post => {
         try {
             const decodedContent = decode(post.content[0]._); // 解码 HTML 实体
-            // console.log('decodedContent--' + decodedContent)
+            const plainContent = decodedContent.replace(/<\/?[^>]+(>|$)/g, "");
             const message = `
-                <b>Title:</b> ${post.title[0]}
-                <b><b>Link:</b> <a href="${post.link[0].$.href}">${post.link[0].$.href}</a>
-                <b><b>Date:</b> ${post.published[0]}
+Title: ${post.title[0]}
+Link: ${post.link[0].$.href}
+Date: ${post.published[0]}
+Content: ${plainContent}
             `;
-            await bot.sendMessage(chatId, message, { parse_mode: 'HTML' });
+            await bot.sendMessage(chatId, message);
             console.log('Message sent successfully:', message);
         } catch (err) {
             console.error('Error sending message:', err);
@@ -66,7 +67,7 @@ const main = async () => {
         if (recentPosts) {
             pushToTelegram(recentPosts);
         }
-        await bot.sendMessage(chatId, "cvdfsvf");
+        // await bot.sendMessage(chatId, "cvdfsvf");
         console.log('Excute Finished.');
     } catch (error) {
         console.error('Error:', error);
