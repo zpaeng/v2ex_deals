@@ -34,22 +34,27 @@ function filterRecentPosts(posts) {
 }
 
 // 推送消息到 Telegram
-function pushToTelegram(posts) {
+async function pushToTelegram(posts) {
     if (posts.length === 0) {
         console.log('No recent posts to push.');
         return;
     }
+    await bot.sendMessage(chatId, "message");
     posts.forEach(post => {
-        const decodedContent = decode(post.content[0]._); // 解码 HTML 实体
-        // console.log('decodedContent--' + decodedContent)
-        const message = `
-            <b>Title:</b> ${post.title[0]}
-            <br><b>Link:</b> <a href="${post.link[0].$.href}">${post.link[0].$.href}</a>
-            <br><b>Date:</b> ${post.published[0]}
-        `;
-        bot.sendMessage(chatId, message, { parse_mode: 'HTML' });
-        console.log('Message sent successfully:', message);
-        bot.sendMessage(chatId, "message");
+        try {
+            const decodedContent = decode(post.content[0]._); // 解码 HTML 实体
+            // console.log('decodedContent--' + decodedContent)
+            const message = `
+                <b>Title:</b> ${post.title[0]}
+                <br><b>Link:</b> <a href="${post.link[0].$.href}">${post.link[0].$.href}</a>
+                <br><b>Date:</b> ${post.published[0]}
+            `;
+            await bot.sendMessage(chatId, message, { parse_mode: 'HTML' });
+            console.log('Message sent successfully:', message);
+        } catch (err) {
+            console.error('Error sending message:', err);
+        }
+        
     });
 }
 
@@ -58,7 +63,7 @@ const main = async () => {
     try {
         const posts = await fetchAndParseXML();
         const recentPosts = filterRecentPosts(posts);
-        console.log('recentPosts--' + JSON.stringify(recentPosts));
+        // console.log('recentPosts--' + JSON.stringify(recentPosts));
         if (recentPosts) {
             pushToTelegram(recentPosts);
         }
