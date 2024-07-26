@@ -23,6 +23,7 @@ async function fetchAndParseXML() {
 // 筛选最近5分钟的帖子
 function filterRecentPosts(posts) {
     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+    console.log('5分钟前' + fiveMinutesAgo)
     return posts.filter(post => {
         const postDate = new Date(post.published[0]);
         return postDate >= fiveMinutesAgo;
