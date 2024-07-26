@@ -1,0 +1,15 @@
+{
+    "name": "v2ex_deals",
+    "version": "1.0.0",
+    "description": "Fetch recent posts from V2EX deals and push to Telegram",
+    "main": "main.js",
+    "scripts": {
+      "start": "node main.js"
+    },
+    "dependencies": {
+      "axios": "^0.21.1",
+      "xml2js": "^0.4.23",
+      "node-telegram-bot-api": "^0.54.0"
+    }
+  }
+  
