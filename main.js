@@ -23,7 +23,9 @@ async function fetchAndParseXML() {
 
 // 筛选最近5分钟的帖子
 function filterRecentPosts(posts) {
-    const fiveMinutesAgo = moment().tz('Asia/Shanghai').subtract(5, 'minutes').toDate();
+    const nowInShanghai = moment().tz('Asia/Shanghai');
+    console.log('上海时间' + nowInShanghai)
+    const fiveMinutesAgo = nowInShanghai.subtract(5, 'minutes').toDate();
     console.log('5分钟前' + fiveMinutesAgo)
     return posts.filter(post => {
         const postDate = new Date(post.published[0]);
