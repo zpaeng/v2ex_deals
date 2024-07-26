@@ -14,7 +14,6 @@ async function fetchAndParseXML() {
     try {
         const response = await axios.get('https://www.v2ex.com/feed/tab/deals.xml');
         const result = await xml2js.parseStringPromise(response.data);
-        console.log('----' + JSON.stringify(result.feed.entry));
         return result.feed.entry;
     } catch (error) {
         console.error('Error fetching or parsing XML:', error);
@@ -25,9 +24,7 @@ async function fetchAndParseXML() {
 // 筛选最近5分钟的帖子
 function filterRecentPosts(posts) {
     const nowInShanghai = moment().tz('Asia/Shanghai');
-    console.log('上海时间' + nowInShanghai.toDate())
     const fiveMinutesAgo = nowInShanghai.subtract(5, 'minutes').toDate();
-    console.log('5分钟前' + fiveMinutesAgo)
     return posts.filter(post => {
         const postDate = new Date(post.published[0]);
         return postDate >= fiveMinutesAgo;
@@ -58,8 +55,10 @@ const main = async () => {
     console.log('Fetching and processing posts...');
     const posts = await fetchAndParseXML();
     const recentPosts = filterRecentPosts(posts);
-    console.log(recentPosts);
-    pushToTelegram(recentPosts);
+    console.log('recentPosts--' + recentPosts);
+    if (recentPosts) {
+        pushToTelegram(recentPosts);
+    }
 };
 
 // 调用主函数
