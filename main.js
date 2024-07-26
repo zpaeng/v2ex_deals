@@ -9,8 +9,8 @@ const botToken = process.env.TELEGRAM_BOT_TOKEN;
 const chatId = process.env.TELEGRAM_CHAT_ID;
 const bot = new TelegramBot(botToken, { polling: true });
 
-console.log('botToken---' + botToken)
-console.log('chatId---' + chatId)
+// console.log('botToken---' + botToken)
+// console.log('chatId---' + chatId)
 // 获取并解析 XML 数据
 async function fetchAndParseXML() {
     try {
