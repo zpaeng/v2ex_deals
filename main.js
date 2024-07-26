@@ -9,6 +9,8 @@ const botToken = process.env.TELEGRAM_BOT_TOKEN;
 const chatId = process.env.TELEGRAM_CHAT_ID;
 const bot = new TelegramBot(botToken, { polling: true });
 
+console.log('botToken---' + botToken)
+console.log('chatId---' + chatId)
 // 获取并解析 XML 数据
 async function fetchAndParseXML() {
     try {
@@ -39,7 +41,7 @@ function pushToTelegram(posts) {
     }
     posts.forEach(post => {
         const decodedContent = decode(post.content[0]._); // 解码 HTML 实体
-        console.log('decodedContent--' + decodedContent)
+        // console.log('decodedContent--' + decodedContent)
         const message = `
             <b>Title:</b> ${post.title[0]}
             <br><b>Link:</b> <a href="${post.link[0].$.href}">${post.link[0].$.href}</a>
@@ -55,7 +57,7 @@ const main = async () => {
     try {
         const posts = await fetchAndParseXML();
         const recentPosts = filterRecentPosts(posts);
-        console.log('recentPosts--' + JSON.stringify(recentPosts));
+        // console.log('recentPosts--' + JSON.stringify(recentPosts));
         if (recentPosts) {
             pushToTelegram(recentPosts);
         }
