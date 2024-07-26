@@ -2,6 +2,7 @@ const axios = require('axios');
 const xml2js = require('xml2js');
 const TelegramBot = require('node-telegram-bot-api');
 const moment = require('moment-timezone'); 
+const { decode } = require('html-entities');
 
 // Telegram Bot Token
 const botToken = process.env.TELEGRAM_BOT_TOKEN;
@@ -39,13 +40,14 @@ function pushToTelegram(posts) {
         console.log('No recent posts to push.');
         return;
     }
-
+    const decodedContent = decode(post.content[0]._); // 解码 HTML 实体
+    console.log('decodedContent--' + decodedContent)
     posts.forEach(post => {
         const message = `
             <b>Title:</b> ${post.title[0]}
             <br><b>Link:</b> <a href="${post.link[0].$.href}">${post.link[0].$.href}</a>
             <br><b>Date:</b> ${post.published[0]}
-            <br><b>Content:</b> ${post.content[0]._}
+            <br><b>Content:</b> ${decodedContent}
         `;
         bot.sendMessage(chatId, message, { parse_mode: 'HTML' });
     });
