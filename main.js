@@ -52,12 +52,18 @@ function pushToTelegram(posts) {
 
 // 定时任务，每5分钟执行一次
 const main = async () => {
-    console.log('Fetching and processing posts...');
-    const posts = await fetchAndParseXML();
-    const recentPosts = filterRecentPosts(posts);
-    console.log('recentPosts--' + recentPosts);
-    if (recentPosts) {
-        pushToTelegram(recentPosts);
+    try {
+        const posts = await fetchAndParseXML();
+        const recentPosts = filterRecentPosts(posts);
+        console.log('recentPosts--' + recentPosts);
+        if (recentPosts) {
+            pushToTelegram(recentPosts);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    } finally {
+        // 确保脚本在执行完所有操作后正常退出
+        process.exit(0);
     }
 };
 
