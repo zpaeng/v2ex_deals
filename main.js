@@ -40,7 +40,7 @@ async function pushToTelegram(posts) {
         return;
     }
     await bot.sendMessage(chatId, "message");
-    posts.forEach(post => {
+    posts.forEach(async post => {
         try {
             const decodedContent = decode(post.content[0]._); // 解码 HTML 实体
             // console.log('decodedContent--' + decodedContent)
