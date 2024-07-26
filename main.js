@@ -66,7 +66,7 @@ const main = async () => {
         if (recentPosts) {
             pushToTelegram(recentPosts);
         }
-        await bot.sendMessage(chatId, "message");
+        await bot.sendMessage(chatId, "cvdfsvf");
         console.log('Excute Finished.');
     } catch (error) {
         console.error('Error:', error);
