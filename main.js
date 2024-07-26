@@ -46,7 +46,6 @@ function pushToTelegram(posts) {
             <b>Title:</b> ${post.title[0]}
             <br><b>Link:</b> <a href="${post.link[0].$.href}">${post.link[0].$.href}</a>
             <br><b>Date:</b> ${post.published[0]}
-            <br><b>Content:</b> ${decodedContent}
         `;
         bot.sendMessage(chatId, message, { parse_mode: 'HTML' });
         console.log('Message sent successfully:', message);
