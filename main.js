@@ -67,6 +67,7 @@ const main = async () => {
         if (recentPosts) {
             pushToTelegram(recentPosts);
         }
+        console.log('Excute Finished.');
     } catch (error) {
         console.error('Error:', error);
     } finally {
