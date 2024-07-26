@@ -12,8 +12,8 @@ async function fetchAndParseXML() {
     try {
         const response = await axios.get('https://www.v2ex.com/feed/tab/deals.xml');
         const result = await xml2js.parseStringPromise(response.data);
-        console.log('----' + JSON.stringify(result.entry));
-        return result.entry;
+        console.log('----' + JSON.stringify(result.feed.entry));
+        return result.feed.entry;
     } catch (error) {
         console.error('Error fetching or parsing XML:', error);
         return [];
