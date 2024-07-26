@@ -39,7 +39,6 @@ async function pushToTelegram(posts) {
         console.log('No recent posts to push.');
         return;
     }
-    await bot.sendMessage(chatId, "message");
     posts.forEach(async post => {
         try {
             const decodedContent = decode(post.content[0]._); // 解码 HTML 实体
@@ -67,6 +66,7 @@ const main = async () => {
         if (recentPosts) {
             pushToTelegram(recentPosts);
         }
+        await bot.sendMessage(chatId, "message");
         console.log('Excute Finished.');
     } catch (error) {
         console.error('Error:', error);
