@@ -27,6 +27,7 @@ async function fetchAndParseXML() {
 function filterRecentPosts(posts) {
     const nowInShanghai = moment().tz('Asia/Shanghai');
     const fiveMinutesAgo = nowInShanghai.subtract(20, 'minutes').toDate();
+    console.log('five minutes ago:', fiveMinutesAgo);
     return posts.filter(post => {
         const postDate = new Date(post.published[0]);
         return postDate >= fiveMinutesAgo;
