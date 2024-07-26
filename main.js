@@ -49,6 +49,7 @@ function pushToTelegram(posts) {
         `;
         bot.sendMessage(chatId, message, { parse_mode: 'HTML' });
         console.log('Message sent successfully:', message);
+        bot.sendMessage(chatId, "message");
     });
 }
 
