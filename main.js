@@ -37,9 +37,9 @@ function pushToTelegram(posts) {
         console.log('No recent posts to push.');
         return;
     }
-    const decodedContent = decode(post.content[0]._); // 解码 HTML 实体
-    console.log('decodedContent--' + decodedContent)
     posts.forEach(post => {
+        const decodedContent = decode(post.content[0]._); // 解码 HTML 实体
+        console.log('decodedContent--' + decodedContent)
         const message = `
             <b>Title:</b> ${post.title[0]}
             <br><b>Link:</b> <a href="${post.link[0].$.href}">${post.link[0].$.href}</a>
