@@ -24,7 +24,7 @@ async function fetchAndParseXML() {
 function filterRecentPosts(posts) {
     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
     return posts.filter(post => {
-        const postDate = new Date(post.pubDate[0]);
+        const postDate = new Date(post.published[0]);
         return postDate >= fiveMinutesAgo;
     });
 }
@@ -37,8 +37,13 @@ function pushToTelegram(posts) {
     }
 
     posts.forEach(post => {
-        const message = `Title: ${post.title[0]}\nLink: ${post.link[0]}\nDate: ${post.pubDate[0]}`;
-        bot.sendMessage(chatId, message);
+        const message = `
+            <b>Title:</b> ${post.title[0]}
+            <br><b>Link:</b> <a href="${post.link[0].$.href}">${post.link[0].$.href}</a>
+            <br><b>Date:</b> ${post.published[0]}
+            <br><b>Content:</b> ${post.content[0]._}
+        `;
+        bot.sendMessage(chatId, message, { parse_mode: 'HTML' });
     });
 }
 
